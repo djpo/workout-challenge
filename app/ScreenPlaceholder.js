@@ -1,16 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Platform,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -19,19 +15,20 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+const mapStateToProps = state => ({
+  foo: state.foo,
+});
+
+const propTypes = {
+  foo: PropTypes.string.isRequired,
+};
+
+class ScreenPlaceholder extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
+        <Text style={styles.text}>
+          foo: {this.props.foo}
         </Text>
       </View>
     );
@@ -45,14 +42,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
+  text: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
   },
 });
+
+ScreenPlaceholder.propTypes = propTypes;
+export default connect(
+  mapStateToProps,
+)(ScreenPlaceholder);
