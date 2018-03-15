@@ -1,5 +1,11 @@
 const initialState = {
-  foo: 'bar',
+  workouts: [
+    '20180315',
+    '20180316',
+    '20180319',
+    '20180320',
+  ],
+  selectedWorkout: '',
 };
 
 export default function appReducer(state = initialState, action) {

@@ -4,31 +4,31 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import { connect } from 'react-redux';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
 const mapStateToProps = state => ({
-  foo: state.foo,
+  workouts: state.workouts,
+  selectedWorkout: state.selectedWorkout,
 });
 
 const propTypes = {
-  foo: PropTypes.string.isRequired,
+  navigation: PropTypes.object.isRequired,
+  workouts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedWorkout: PropTypes.string.isRequired,
 };
 
-class ScreenPlaceholder extends Component {
+class Workout extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>Workout screen</Text>
         <Text style={styles.text}>
-          foo: {this.props.foo}
+          workouts: {this.props.workouts}
+        </Text>
+        <Text style={styles.text}>
+          selectedWorkout: {this.props.selectedWorkout}
         </Text>
       </View>
     );
@@ -40,15 +40,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#555BBB',
   },
   text: {
+    margin: 5,
     textAlign: 'center',
     color: '#333333',
   },
 });
 
-ScreenPlaceholder.propTypes = propTypes;
+Workout.propTypes = propTypes;
 export default connect(
   mapStateToProps,
-)(ScreenPlaceholder);
+)(Workout);
