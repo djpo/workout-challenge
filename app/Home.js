@@ -11,30 +11,39 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
   workouts: state.workouts,
-  selectedWorkout: state.selectedWorkout,
 });
 
 const propTypes = {
   navigation: PropTypes.object.isRequired,
   workouts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectedWorkout: PropTypes.string.isRequired,
 };
 
 class Home extends Component {
   render() {
+    const workoutButtons = this.props.workouts.map((workout) => {
+      const formattedDate = `${workout.slice(0, 4)}-${workout.slice(4, 6)}-${workout.slice(6)}`;
+
+      return (
+        <View key={workout} style={styles.workoutButton}>
+          <Button
+            title={formattedDate}
+            onPress={() => console.log(`you pressed ${workout}`)}
+          >
+          </Button>
+        </View>
+      );
+    });
+
     return (
       <View style={styles.container}>
         <Text>Home screen</Text>
+
         <Button
           title="Go to Workout view"
           onPress={() => this.props.navigation.navigate('Workout')}
         />
-        <Text style={styles.text}>
-          workouts: {this.props.workouts}
-        </Text>
-        <Text style={styles.text}>
-          selectedWorkout: {this.props.selectedWorkout}
-        </Text>
+
+        {workoutButtons}
       </View>
     );
   }
@@ -47,10 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  text: {
+  workoutButton: {
     margin: 5,
-    textAlign: 'center',
-    color: '#333333',
   },
 });
 
