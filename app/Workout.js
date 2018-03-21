@@ -9,16 +9,23 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkIn } from './redux/actions';
+import {
+  checkIn,
+  updateTextInput,
+} from './redux/actions';
 
 const mapStateToProps = state => ({
   selectedWorkout: state.selectedWorkout,
   participants: state.workouts.find(workout => workout.date === state.selectedWorkout).participants,
+  textInput: state.textInput,
 });
 
 const mapDispatchToProps = dispatch => ({
   checkIn: (id) => {
     dispatch(checkIn(id));
+  },
+  updateTextInput: (newText) => {
+    dispatch(updateTextInput(newText));
   },
 });
 
@@ -31,6 +38,7 @@ const propTypes = {
     checkedIn: PropTypes.bool.isRequired,
   })).isRequired,
   checkIn: PropTypes.func.isRequired,
+  textInput: PropTypes.string.isRequired,
 };
 
 class Workout extends Component {
@@ -72,8 +80,9 @@ class Workout extends Component {
         <View style={[styles.participantRow, styles.newParticipantRow]}>
           <TextInput
             style={styles.newParticipantInput}
-            value=""
+            value={this.props.textInput}
             placeholder="Name"
+            onChangeText={newText => this.props.updateTextInput(newText)}
           />
           <Button
             title="add"

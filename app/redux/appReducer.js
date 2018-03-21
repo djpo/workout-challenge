@@ -25,6 +25,11 @@ export default function appReducer(state = initialState, action) {
         workouts: workoutsUpdated,
       };
 
+    case 'UPDATE_TEXT_INPUT':
+      return { ...state,
+        textInput: action.newText,
+      };
+
     default:
       return state;
   }

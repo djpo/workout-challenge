@@ -11,3 +11,10 @@ export function checkIn(id) {
     id,
   };
 }
+
+export function updateTextInput(newText) {
+  return {
+    type: 'UPDATE_TEXT_INPUT',
+    newText,
+  };
+}

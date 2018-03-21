@@ -1,4 +1,6 @@
 const initialState = {
+  selectedWorkout: '',
+  textInput: '',
   workouts: [
     {
       date: '20180321',
@@ -60,7 +62,6 @@ const initialState = {
       participants: [],
     },
   ],
-  selectedWorkout: '',
 };
 
 export default initialState;
