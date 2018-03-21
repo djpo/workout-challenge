@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
+  Keyboard,
   Platform,
   StyleSheet,
   Text,
@@ -12,6 +13,7 @@ import { connect } from 'react-redux';
 import {
   checkIn,
   updateTextInput,
+  addParticipant,
 } from './redux/actions';
 
 const mapStateToProps = state => ({
@@ -26,6 +28,10 @@ const mapDispatchToProps = dispatch => ({
   },
   updateTextInput: (newText) => {
     dispatch(updateTextInput(newText));
+  },
+  addParticipant: () => {
+    Keyboard.dismiss();
+    dispatch(addParticipant());
   },
 });
 
@@ -86,7 +92,7 @@ class Workout extends Component {
           />
           <Button
             title="add"
-            onPress={() => console.log('add participant')}
+            onPress={this.props.addParticipant}
           />
         </View>
       </View>

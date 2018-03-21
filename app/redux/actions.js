@@ -18,3 +18,7 @@ export function updateTextInput(newText) {
     newText,
   };
 }
+
+export function addParticipant() {
+  return { type: 'ADD_PARTICIPANT' };
+}
