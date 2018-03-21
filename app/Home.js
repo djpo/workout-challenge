@@ -8,17 +8,30 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { selectWorkout } from './redux/actions';
 
 const mapStateToProps = state => ({
   workouts: state.workouts,
 });
 
+const mapDispatchToProps = dispatch => ({
+  selectWorkout: (workout) => {
+    dispatch(selectWorkout(workout));
+  },
+});
+
 const propTypes = {
   navigation: PropTypes.object.isRequired,
   workouts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectWorkout: PropTypes.func.isRequired,
 };
 
 class Home extends Component {
+  handleWorkoutPress(workout) {
+    this.props.selectWorkout(workout);
+    this.props.navigation.navigate('Workout');
+  }
+
   render() {
     const workoutButtons = this.props.workouts.map((workout) => {
       const formattedDate = `${workout.slice(0, 4)}-${workout.slice(4, 6)}-${workout.slice(6)}`;
@@ -27,7 +40,7 @@ class Home extends Component {
         <View key={workout} style={styles.workoutButton}>
           <Button
             title={formattedDate}
-            onPress={() => console.log(`you pressed ${workout}`)}
+            onPress={() => this.handleWorkoutPress(workout)}
           >
           </Button>
         </View>
@@ -37,11 +50,6 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <Text>Home screen</Text>
-
-        <Button
-          title="Go to Workout view"
-          onPress={() => this.props.navigation.navigate('Workout')}
-        />
 
         {workoutButtons}
       </View>
@@ -54,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'lightgray',
   },
   workoutButton: {
     margin: 5,
@@ -64,4 +72,5 @@ const styles = StyleSheet.create({
 Home.propTypes = propTypes;
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Home);
