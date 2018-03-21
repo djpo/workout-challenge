@@ -41,8 +41,7 @@ class Home extends Component {
           <Button
             title={formattedDate}
             onPress={() => this.handleWorkoutPress(date)}
-          >
-          </Button>
+          />
         </View>
       );
     });

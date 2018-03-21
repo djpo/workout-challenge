@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   Platform,
   StyleSheet,
   Text,
@@ -24,20 +25,29 @@ const propTypes = {
 
 class Workout extends Component {
   render() {
-    const participantRows = this.props.participants.map(participant => (
-      <View key={participant.name} style={styles.participantRow}>
-        <Text>{participant.name}</Text>
-        <Text>{participant.checkedIn ? 'checked in' : 'not checked in'}</Text>
-      </View>
-    ));
+    const participantRows = this.props.participants.map((participant) => {
+      if (participant.checkedIn) {
+        return ( // without 'check in' button
+          <View key={participant.name} style={styles.participantRow}>
+            <Text style={styles.name}>{participant.name} (checked in)</Text>
+          </View>
+        );
+      }
+
+      return ( // with 'check in' button
+        <View key={participant.name} style={styles.participantRow}>
+          <Text style={styles.name}>{participant.name}</Text>
+          <Button
+            title={'check in'}
+            onPress={() => console.log(`${participant.name} to be checked in`)}
+          />
+        </View>
+      );
+    });
 
     return (
       <View style={styles.container}>
-        <Text>Workout screen</Text>
-
-        <Text style={styles.text}>
-          selectedWorkout: {this.props.selectedWorkout}
-        </Text>
+        <Text style={styles.text}>selectedWorkout: {this.props.selectedWorkout}</Text>
 
         {participantRows}
       </View>
@@ -60,6 +70,10 @@ const styles = StyleSheet.create({
   participantRow: {
     margin: 2,
     borderWidth: 1,
+    flexDirection: 'row',
+  },
+  name: {
+    color: 'red',
   },
 });
 
