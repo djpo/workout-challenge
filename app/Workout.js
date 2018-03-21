@@ -5,6 +5,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -53,7 +54,7 @@ class Workout extends Component {
         <View key={participant.id} style={styles.participantRow}>
           <Text style={styles.name}>{participant.name}</Text>
           <Button
-            title={'check in'}
+            title="check in"
             onPress={() => this.props.checkIn(participant.id)}
           />
         </View>
@@ -65,6 +66,20 @@ class Workout extends Component {
         <Text style={styles.label}>Participants:</Text>
 
         {participantRows}
+
+        <Text style={styles.label}>Add participant:</Text>
+
+        <View style={[styles.participantRow, styles.newParticipantRow]}>
+          <TextInput
+            style={styles.newParticipantInput}
+            value=""
+            placeholder="Name"
+          />
+          <Button
+            title="add"
+            onPress={() => console.log('add participant')}
+          />
+        </View>
       </View>
     );
   }
@@ -96,6 +111,14 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     paddingHorizontal: 5,
+  },
+  newParticipantRow: {
+    backgroundColor: 'rgb(240,240,240)',
+  },
+  newParticipantInput: {
+    flex: 1,
+    marginRight: 5,
+    paddingVertical: 8,
   },
 });
 
