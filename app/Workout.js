@@ -24,6 +24,12 @@ const propTypes = {
 };
 
 class Workout extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+
+    return { title: params ? params.title : 'Workout participants' };
+  };
+
   render() {
     const participantRows = this.props.participants.map((participant) => {
       if (participant.checkedIn) {
@@ -47,7 +53,7 @@ class Workout extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>selectedWorkout: {this.props.selectedWorkout}</Text>
+        <Text style={styles.text}>Participants:</Text>
 
         {participantRows}
       </View>

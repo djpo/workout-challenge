@@ -4,7 +4,10 @@ import Workout from './Workout';
 
 const AppNavigator = StackNavigator(
   { // route config
-    Home: { screen: Home },
+    Home: {
+      screen: Home,
+      navigationOptions: { title: 'All workouts' },
+    },
     Workout: { screen: Workout },
   },
   { // stack nav config

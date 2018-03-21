@@ -27,9 +27,9 @@ const propTypes = {
 };
 
 class Home extends Component {
-  handleWorkoutPress(workout) {
-    this.props.selectWorkout(workout);
-    this.props.navigation.navigate('Workout');
+  handleWorkoutPress(date, formattedDate) {
+    this.props.selectWorkout(date);
+    this.props.navigation.navigate('Workout', { title: formattedDate });
   }
 
   render() {
@@ -40,7 +40,7 @@ class Home extends Component {
         <View key={date} style={styles.workoutButton}>
           <Button
             title={formattedDate}
-            onPress={() => this.handleWorkoutPress(date)}
+            onPress={() => this.handleWorkoutPress(date, formattedDate)}
           />
         </View>
       );
@@ -48,8 +48,6 @@ class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Home screen</Text>
-
         {workoutButtons}
       </View>
     );
