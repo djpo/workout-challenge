@@ -1,9 +1,56 @@
 const initialState = {
   workouts: [
-    '20180315',
-    '20180316',
-    '20180319',
-    '20180320',
+    {
+      date: '20180321',
+      participants: [
+        {
+          name: "Drk Prp",
+          checkedIn: false,
+        },
+        {
+          name: "Aab Ccd",
+          checkedIn: false,
+        },
+        {
+          name: "Eef Ggh",
+          checkedIn: true,
+        },
+      ],
+    },
+    {
+      date: '20180322',
+      participants: [
+        {
+          name: "Aab Ccd",
+          checkedIn: false,
+        },
+        {
+          name: "Eef Ggh",
+          checkedIn: false,
+        },
+        {
+          name: "Iij Kkl",
+          checkedIn: false,
+        },
+      ],
+    },
+    {
+      date: '20180323',
+      participants: [
+        {
+          name: "Iij Kkl",
+          checkedIn: true,
+        },
+        {
+          name: "Mmn Oop",
+          checkedIn: false,
+        },
+      ],
+    },
+    {
+      date: '20180326',
+      participants: [],
+    },
   ],
   selectedWorkout: '',
 };
@@ -13,7 +60,7 @@ export default function appReducer(state = initialState, action) {
 
     case 'SELECT_WORKOUT':
       return { ...state,
-        selectedWorkout: action.workout,
+        selectedWorkout: action.date,
       };
 
     default:

@@ -11,18 +11,18 @@ import { connect } from 'react-redux';
 import { selectWorkout } from './redux/actions';
 
 const mapStateToProps = state => ({
-  workouts: state.workouts,
+  workoutDates: state.workouts.map(workout => workout.date),
 });
 
 const mapDispatchToProps = dispatch => ({
-  selectWorkout: (workout) => {
-    dispatch(selectWorkout(workout));
+  selectWorkout: (date) => {
+    dispatch(selectWorkout(date));
   },
 });
 
 const propTypes = {
   navigation: PropTypes.object.isRequired,
-  workouts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  workoutDates: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectWorkout: PropTypes.func.isRequired,
 };
 
@@ -33,14 +33,14 @@ class Home extends Component {
   }
 
   render() {
-    const workoutButtons = this.props.workouts.map((workout) => {
-      const formattedDate = `${workout.slice(0, 4)}-${workout.slice(4, 6)}-${workout.slice(6)}`;
+    const workoutButtons = this.props.workoutDates.map((date) => {
+      const formattedDate = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}`;
 
       return (
-        <View key={workout} style={styles.workoutButton}>
+        <View key={date} style={styles.workoutButton}>
           <Button
             title={formattedDate}
-            onPress={() => this.handleWorkoutPress(workout)}
+            onPress={() => this.handleWorkoutPress(date)}
           >
           </Button>
         </View>

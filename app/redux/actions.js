@@ -1,6 +1,6 @@
-export function selectWorkout(workout) {
+export function selectWorkout(date) {
   return {
     type: 'SELECT_WORKOUT',
-    workout,
+    date,
   };
 }
