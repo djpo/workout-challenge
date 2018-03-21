@@ -34,8 +34,8 @@ class Workout extends Component {
     const participantRows = this.props.participants.map((participant) => {
       if (participant.checkedIn) {
         return ( // without 'check in' button
-          <View key={participant.name} style={styles.participantRow}>
-            <Text style={styles.name}>{participant.name} (checked in)</Text>
+          <View key={participant.name} style={[styles.participantRow, styles.checkedIn]}>
+            <Text style={styles.name}>{participant.name}</Text>
           </View>
         );
       }
@@ -53,7 +53,7 @@ class Workout extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Participants:</Text>
+        <Text style={styles.label}>Participants:</Text>
 
         {participantRows}
       </View>
@@ -64,22 +64,29 @@ class Workout extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'lightyellow',
+    backgroundColor: 'lightgray',
   },
-  text: {
-    margin: 5,
-    textAlign: 'center',
-    color: '#333333',
+  label: {
+    margin: 10,
+    fontSize: 20,
+    color: 'rgb(51,51,51)',
   },
   participantRow: {
-    margin: 2,
-    borderWidth: 1,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    minHeight: 45,
+    backgroundColor: 'rgb(255,130,110)',
+    padding: 5,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  checkedIn: {
+    backgroundColor: 'rgb(110,255,170)',
   },
   name: {
-    color: 'red',
+    fontSize: 16,
+    paddingHorizontal: 5,
   },
 });
 
