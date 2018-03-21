@@ -8,19 +8,28 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { checkIn } from './redux/actions';
 
 const mapStateToProps = state => ({
   selectedWorkout: state.selectedWorkout,
   participants: state.workouts.find(workout => workout.date === state.selectedWorkout).participants,
 });
 
+const mapDispatchToProps = dispatch => ({
+  checkIn: (id) => {
+    dispatch(checkIn(id));
+  },
+});
+
 const propTypes = {
   navigation: PropTypes.object.isRequired,
   selectedWorkout: PropTypes.string.isRequired,
   participants: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     checkedIn: PropTypes.bool.isRequired,
   })).isRequired,
+  checkIn: PropTypes.func.isRequired,
 };
 
 class Workout extends Component {
@@ -34,18 +43,18 @@ class Workout extends Component {
     const participantRows = this.props.participants.map((participant) => {
       if (participant.checkedIn) {
         return ( // without 'check in' button
-          <View key={participant.name} style={[styles.participantRow, styles.checkedIn]}>
+          <View key={participant.id} style={[styles.participantRow, styles.checkedIn]}>
             <Text style={styles.name}>{participant.name}</Text>
           </View>
         );
       }
 
       return ( // with 'check in' button
-        <View key={participant.name} style={styles.participantRow}>
+        <View key={participant.id} style={styles.participantRow}>
           <Text style={styles.name}>{participant.name}</Text>
           <Button
             title={'check in'}
-            onPress={() => console.log(`${participant.name} to be checked in`)}
+            onPress={() => this.props.checkIn(participant.id)}
           />
         </View>
       );
@@ -93,4 +102,5 @@ const styles = StyleSheet.create({
 Workout.propTypes = propTypes;
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Workout);

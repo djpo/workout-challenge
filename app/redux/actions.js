@@ -4,3 +4,10 @@ export function selectWorkout(date) {
     date,
   };
 }
+
+export function checkIn(id) {
+  return {
+    type: 'CHECK_IN',
+    id,
+  };
+}
